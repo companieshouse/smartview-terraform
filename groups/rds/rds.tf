@@ -10,7 +10,7 @@ module "rds_security_group" {
   description = "Security group for the smartview RDS database"
   vpc_id      = data.aws_vpc.vpc.id
 
-  ingress_cidr_blocks = concat(local.admin_cidrs, var.rds_onpremise_access)
+  ingress_cidr_blocks = concat(local.admin_cidrs, local.app_cidrs)
   ingress_rules       = ["oracle-db-tcp"]
   ingress_with_cidr_blocks = [
     {
@@ -18,7 +18,7 @@ module "rds_security_group" {
       to_port     = 5500
       protocol    = "tcp"
       description = "Oracle Enterprise Manager"
-      cidr_blocks = join(",", concat(local.admin_cidrs, var.rds_onpremise_access))
+      cidr_blocks = join(",", concat(local.admin_cidrs, local.app_cidrs))
     }
   ]
   ingress_with_source_security_group_id = []
@@ -33,8 +33,8 @@ module "smartview_rds" {
   source  = "terraform-aws-modules/rds/aws"
   version = "2.23.0" # Pinned version to ensure updates are a choice, can be upgraded if new features are available and required.
 
-  create_db_parameter_group = "true"
-  create_db_subnet_group    = "true"
+  create_db_parameter_group = true
+  create_db_subnet_group    = true
 
   identifier                 = join("-", ["rds", var.identifier, var.environment, "001"])
   engine                     = "oracle-se2"
@@ -59,7 +59,7 @@ module "smartview_rds" {
   maintenance_window        = var.rds_maintenance_window
   backup_window             = var.rds_backup_window
   backup_retention_period   = var.backup_retention_period
-  skip_final_snapshot       = "false"
+  skip_final_snapshot       = false
   final_snapshot_identifier = "${var.identifier}-final-deletion-snapshot"
 
   # Enhanced Monitoring
