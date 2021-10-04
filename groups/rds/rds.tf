@@ -36,7 +36,7 @@ module "smartview_rds" {
   create_db_parameter_group = true
   create_db_subnet_group    = true
 
-  identifier                 = join("-", ["rds", var.identifier, var.environment, "001"])
+  identifier                 = "rds-${var.identifier}-${var.environment}-001"
   engine                     = "oracle-se2"
   major_engine_version       = var.major_engine_version
   engine_version             = var.engine_version
