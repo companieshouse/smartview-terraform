@@ -81,7 +81,7 @@ module "smartview_rds" {
   subnet_ids = data.aws_subnet_ids.data.ids
 
   # DB Parameter group
-  family = join("-", ["oracle-se2", var.major_engine_version])
+  family = "oracle-se2-${var.major_engine_version}"
 
   parameters = var.parameter_group_settings
 
