@@ -10,7 +10,7 @@ environment = "staging"
 
 # RDS Instance settings
 identifier                   = "smartview"
-name                         = "smartstg"
+name                         = "smart"
 instance_class               = "db.m5.large"
 allocated_storage            = 140
 backup_retention_period      = 2
