@@ -129,3 +129,13 @@ module "smartview_rds" {
     )
   )
 }
+
+module "rds_start_stop_schedule" {
+  source = "git@github.com:companieshouse/terraform-modules//aws/rds_start_stop_schedule?ref=tags/1.0.131"
+
+  rds_schedule_enable = var.rds_schedule_enable
+
+  rds_instance_id     = module.smartview_rds.this_db_instance_id
+  rds_start_schedule  = var.rds_start_schedule
+  rds_stop_schedule   = var.rds_stop_schedule
+}
