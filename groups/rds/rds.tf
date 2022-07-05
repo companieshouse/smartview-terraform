@@ -141,7 +141,7 @@ module "rds_start_stop_schedule" {
 }
 
 module "rds_cloudwatch_alarms" {
-  source = "git@github.com:companieshouse/terraform-modules//aws/rds_cloudwatch_alarms?ref=tags/1.0.166"
+  source = "git@github.com:companieshouse/terraform-modules//aws/rds_cloudwatch_alarms?ref=tags/1.0.167"
 
   rds_instance_id        = module.smartview_rds.this_db_instance_id
   rds_instance_shortname = upper(var.name)
