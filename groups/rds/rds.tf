@@ -36,6 +36,9 @@ module "smartview_rds" {
   create_db_parameter_group = true
   create_db_subnet_group    = true
 
+  apply_immediately = true
+  allow_major_version_upgrade = true
+
   character_set_name         = "WE8MSWIN1252"
   identifier                 = "rds-${var.identifier}-${var.environment}-001"
   engine                     = "oracle-se2"
